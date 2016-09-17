@@ -32,6 +32,14 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lsvCurrentFolder = new System.Windows.Forms.ListView();
+            this.TrackNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Title = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Artist = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Album = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Date = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Genre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DiscNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mnsMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,11 +78,56 @@
             this.openFolderToolStripMenuItem.Text = "Open Folder";
             this.openFolderToolStripMenuItem.Click += new System.EventHandler(this.openFolderToolStripMenuItem_Click);
             // 
+            // lsvCurrentFolder
+            // 
+            this.lsvCurrentFolder.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.TrackNo,
+            this.Title,
+            this.Artist,
+            this.Album,
+            this.Date,
+            this.Genre,
+            this.DiscNo});
+            this.lsvCurrentFolder.Location = new System.Drawing.Point(0, 27);
+            this.lsvCurrentFolder.Name = "lsvCurrentFolder";
+            this.lsvCurrentFolder.Size = new System.Drawing.Size(722, 569);
+            this.lsvCurrentFolder.TabIndex = 1;
+            this.lsvCurrentFolder.UseCompatibleStateImageBehavior = false;
+            // 
+            // TrackNo
+            // 
+            this.TrackNo.Text = "Track #";
+            // 
+            // Title
+            // 
+            this.Title.Text = "Title";
+            // 
+            // Artist
+            // 
+            this.Artist.Text = "Artist";
+            // 
+            // Album
+            // 
+            this.Album.Text = "Album";
+            // 
+            // Date
+            // 
+            this.Date.Text = "Date";
+            // 
+            // Genre
+            // 
+            this.Genre.Text = "Genre";
+            // 
+            // DiscNo
+            // 
+            this.DiscNo.Text = "Disk #";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(734, 711);
+            this.Controls.Add(this.lsvCurrentFolder);
             this.Controls.Add(this.mnsMenu);
             this.MainMenuStrip = this.mnsMenu;
             this.MinimumSize = new System.Drawing.Size(500, 500);
@@ -94,5 +147,13 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ListView lsvCurrentFolder;
+        private System.Windows.Forms.ColumnHeader TrackNo;
+        private System.Windows.Forms.ColumnHeader Title;
+        private System.Windows.Forms.ColumnHeader Artist;
+        private System.Windows.Forms.ColumnHeader Album;
+        private System.Windows.Forms.ColumnHeader Date;
+        private System.Windows.Forms.ColumnHeader Genre;
+        private System.Windows.Forms.ColumnHeader DiscNo;
     }
 }
