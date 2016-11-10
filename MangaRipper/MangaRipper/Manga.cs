@@ -4,10 +4,9 @@ namespace MangaRipper
 {
     internal class Manga
     {
-        private int volume;
-        private int chapter;
+        private double chapter;
 
-        public int Chapter
+        public double Chapter
         {
             get
             {
@@ -20,7 +19,7 @@ namespace MangaRipper
             }
         }
 
-        public int Volume { get; set; }
+        public double Volume { get; set; }
         public int ImageCount { get; set; }
         public string Name { get; private set; }
         public string MangaFoxUrl { get; private set; }

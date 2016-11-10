@@ -14,6 +14,25 @@ namespace MangaRipper
             Document.LoadHtml(html);
         }
 
+        public HtmlNode GetNodeById(string id)
+        {
+            foreach (var node in Document.DocumentNode.Descendants())
+            {
+                if (node.Attributes["id"] != null && node.Attributes["id"].Value == id)
+                {
+                    return node;
+                }
+            }
+
+            return null;
+        }
+
+        public IEnumerable<HtmlNode> GetDivs()
+        {
+            var imgNodes = Document.DocumentNode.Descendants("div");
+            return imgNodes;
+        }
+
         public IEnumerable<HtmlNode> GetImageNodes()
         {
             var imgNodes = Document.DocumentNode.Descendants("img");

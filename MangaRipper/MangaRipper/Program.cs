@@ -1,5 +1,7 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Net;
 
 namespace MangaRipper
@@ -22,7 +24,15 @@ namespace MangaRipper
                 var html = new HtmlHelper(page);
                 var imageElements = html.GetImageNodes();
                 var mainImageElement = imageElements.GetNodeById("image");
-                var currentImageUrl = mainImageElement.GetAttributeValue("src", null);
+                var currentImageUrl = string.Empty;
+                try
+                {
+                    currentImageUrl = mainImageElement.GetAttributeValue("src", null);
+                }
+                catch (Exception)
+                {
+                    basePageReached = true;
+                }
 
                 if (currentImageUrl.IsValid())
                 {
@@ -31,19 +41,39 @@ namespace MangaRipper
                     string fileName = string.Format("{0}.jpg", currentManga.ImageCount);
                     web.DownloadFile(currentImageUrl, path, fileName);
 
-                    var mainImageParentElement = mainImageElement.ParentNode;
-                    var nextPage = mainImageParentElement.GetAttributeValue("href", null);
+                    var imageParentElement = mainImageElement.ParentNode;
+                    string nextPage = imageParentElement.Attributes["href"].Value;
+                    
                     if (nextPage == "javascript:void(0);")
                     {
-                        currentManga.Chapter++;
+                        var navElement = html.GetNodeById("chnav");
+                        var aElements = navElement.Descendants("a");
+                        var nextChapterLinkElement = aElements.Last();
+                        var nextChapterLink = nextChapterLinkElement.GetAttributeValue("href", null);
+                        currentManga.Volume = ParseVolumeFromUrl(nextChapterLink);
+                        currentManga.Chapter = ParseChapterFromUrl(nextChapterLink);
                         url = BuildUrl(currentManga, "1.html");
                     }
                     else
                     {
                         url = BuildUrl(currentManga, nextPage);
-                    }  
+                    }
                 }
             }
+        }
+
+        private static double ParseVolumeFromUrl(string url)
+        {
+            var split = url.Split('/');
+            string volume = split[5].Substring(1);
+            return double.Parse(volume);
+        }
+
+        private static double ParseChapterFromUrl(string url)
+        {
+            var split = url.Split('/');
+            string volume = split[6].Substring(1);
+            return double.Parse(volume);
         }
 
         private static string BuildUrl(Manga currentManga, string pageName = null)
