@@ -7,6 +7,7 @@ namespace MangaRipper
     {
         private double chapter;
         private string fileFolder;
+        private double volume;
 
         public double Chapter
         {
@@ -30,14 +31,30 @@ namespace MangaRipper
             }
         }
 
-        public double Volume { get; set; }
+        public double Volume
+        {
+            get
+            {
+                return volume;
+            }
+            set
+            {
+                volume = (value <= 0) ? 1 : value;
+            }
+        }
+
         public int ImageCount { get; set; }
         public string Name { get; private set; }
         public string MangaFoxUrl { get; private set; }
 
         public Manga()
         {
-            Volume = 1;
+            string volume = ConfigurationManager.AppSettings["Volume"];
+            Volume = ParseString(volume);
+
+            string chapter = ConfigurationManager.AppSettings["Chapter"];
+            Chapter = ParseString(chapter);
+
             MangaFoxUrl = ConfigurationManager.AppSettings["MangaMainUrl"];
             fileFolder = ConfigurationManager.AppSettings["DownloadPath"];
             Name = MangaFoxUrl.Split('/')[4];
@@ -90,6 +107,13 @@ namespace MangaRipper
             }
 
             return url;
+        }
+
+        private double ParseString(string input)
+        {
+            double tempValue = 0;
+            double.TryParse(input, out tempValue);
+            return tempValue;
         }
     }
 }
