@@ -18,7 +18,7 @@ namespace MangaRipper
             set
             {
                 ImageCount = 0;
-                chapter = value;
+                chapter = (value <= 0) ? 1 : value;
             }
         }
 
@@ -46,6 +46,8 @@ namespace MangaRipper
         public int ImageCount { get; set; }
         public string Name { get; private set; }
         public string MangaFoxUrl { get; private set; }
+
+        public const string BASE_PAGE = "1.html";
 
         public Manga()
         {
@@ -77,9 +79,9 @@ namespace MangaRipper
         public string GetUrl(string pageName = null)
         {
             string url = MangaFoxUrl;
-            if (pageName == null)
+            if (Chapter <= 1 || Volume <= 1)
             {
-                url += "/v01/c000/1.html";
+                url += "/v01/c000/" + BASE_PAGE;
             }
             else
             {

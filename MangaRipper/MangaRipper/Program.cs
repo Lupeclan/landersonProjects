@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Net;
 
@@ -13,7 +11,7 @@ namespace MangaRipper
             var currentManga = new Manga();            
             var web = new WebWrapper();
 
-            string url = currentManga.GetUrl();
+            string url = currentManga.GetUrl(Manga.BASE_PAGE);
             bool basePageReached = false;
             while (!basePageReached)
             {
@@ -49,7 +47,7 @@ namespace MangaRipper
 
                         currentManga.SetVolumeFromUrl(nextChapterLink);
                         currentManga.SetChapterFromUrl(nextChapterLink);
-                        url = currentManga.GetUrl("1.html");
+                        url = currentManga.GetUrl(Manga.BASE_PAGE);
                     }
                     else
                     {
